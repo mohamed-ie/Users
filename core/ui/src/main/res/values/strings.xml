@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="core_ui_error_message_unexpected_error">We encountered an unexpected error. Please try again later.</string>
+    <string name="core_ui_content_description_like">Like</string>
+    <string name="core_ui_content_description_dislike">Dislike</string>
+    <string name="core_ui_message_disliked">Removed from your likes.</string>
+    <string name="core_ui_message_liked">Added to your likes!.</string>
+    <string name="core_ui_action_retry">Retry</string>
+    <string name="core_ui_message_no_data">No data</string>
+    <string name="core_ui_text_username_arg1">"Username: %s"</string>
+    <string name="core_ui_text_email_arg1">"Email: %s"</string>
+    <string name="core_ui_text_phone_number_arg1">"Phone number: %s"</string>
+    <string name="core_ui_text_website_arg1">"Website: %s"</string>
+    <string name="core_ui_text_address">Address</string>
+    <string name="core_ui_text_street_arg1">Street: %s</string>
+    <string name="core_ui_text_suite_arg1">Suite: %s</string>
+    <string name="core_ui_text_zipcode_arg1">Zipcode: %s</string>
+    <string name="core_ui_text_city_arg1">City: %s</string>
+    <string name="core_ui_text_company">Company</string>
+    <string name="core_ui_text_name_arg1">Name: %s</string>
+    <string name="core_ui_text_catch_phrase_arg1">Catch phrase: %s</string>
+    <string name="core_ui_text_business_stuff_arg1">Business Stuff: %s</string>
+    <string name="core_ui_action_dimsiss">Dimiss</string>
+
+</resources>

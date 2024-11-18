@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Users</string>
+    <string name="text_offline">Offline</string>
+    <string name="text_back_online">Back online!</string>
+    <string name="bottom_bar_users">Users</string>
+    <string name="bottom_bar_likes">Likes</string>
+</resources>
