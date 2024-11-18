@@ -17,8 +17,8 @@ This Android application showcases a modern approach to fetching, displaying, an
 *   Kotlin
 *   Jetpack Compose
 *   Room
-*   Retrofit
+*   Ktor
 *   Coroutines
 *   Flows
-*   Hilt (or your preferred dependency injection framework)
+*   Koin
 *   Mockito (for testing)
