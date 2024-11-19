@@ -109,7 +109,7 @@ private fun BottomBar(appState: UsersAppState) {
             val selected = currentDestination?.isBottomDestinationInHierarchy(destination) == true
 
             NavigationBarItem(
-                selected = true,
+                selected = selected,
                 onClick = { appState.navigateToBottomBarDestination(destination.route) },
                 icon = {
                     Crossfade(targetState = selected, label = "bottom bar icon") {

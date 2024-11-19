@@ -3,7 +3,7 @@ package com.users.core.data.model
 import com.users.core.database.model.UserEntity
 import com.users.core.model.User
 
-internal fun User.asUserEntity() = UserEntity(
+internal fun User.asEntity() = UserEntity(
     id = id,
     name = name,
     username = username,

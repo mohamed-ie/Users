@@ -1,7 +1,6 @@
 package com.users.core.data.repository
 
 import com.users.core.data.model.asEntity
-import com.users.core.data.model.asUserEntity
 import com.users.core.database.dao.UserDao
 import com.users.core.database.model.PopulatedUser
 import com.users.core.database.model.asExternalModel
@@ -21,8 +20,8 @@ internal class DefaultUserRepository(
     private val userDao: UserDao,
     private val networkDataSource: UsersNetworkDataSource
 ) : UsersRepository {
-    override val likedUsers: Flow<List<User>> =
-        userDao.users().map { it.map(PopulatedUser::asExternalModel) }
+    override val likedUsers: Flow<List<User>>
+        get() = userDao.users().map { it.map(PopulatedUser::asExternalModel) }
 
     /**
      * A flow of all users, fetched from the network and combined with liked status
@@ -57,7 +56,7 @@ internal class DefaultUserRepository(
 
     override suspend fun like(user: User) {
         userDao.insert(
-            user = user.asUserEntity(),
+            user = user.asEntity(),
             company = user.company.asEntity(),
             address = user.address.asEntity()
         )
