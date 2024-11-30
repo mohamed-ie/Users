@@ -3,7 +3,7 @@ package com.users.feature.users
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.users.core.common.di.ApplicationScope
-import com.users.core.data.repository.UsersRepository
+import com.users.core.data.repository.UserRepository
 import com.users.core.model.User
 import com.users.core.ui.R
 import com.users.feature.users.UsersUiEvent.ShowSnackbar
@@ -22,7 +22,7 @@ import org.koin.android.annotation.KoinViewModel
 
 @KoinViewModel
 internal class UsersViewModel(
-    private val usersRepository: UsersRepository,
+    private val userRepository: UserRepository,
     @ApplicationScope
     private val applicationScope: CoroutineScope
 ) : ViewModel() {
@@ -33,7 +33,7 @@ internal class UsersViewModel(
 
     val uiState = uiState(
         shouldReloadUsers = shouldReloadUsers,
-        users = usersRepository.users
+        users = userRepository.users()
     ).stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(5_000),
@@ -49,9 +49,9 @@ internal class UsersViewModel(
     fun toggleLike(user: User) {
         applicationScope.launch {
             if (user.isLiked)
-                usersRepository.dislike(user.id)
+                userRepository.dislike(user.id)
             else
-                usersRepository.like(user)
+                userRepository.like(user)
 
             val messageId = if (user.isLiked)
                 R.string.core_ui_message_disliked

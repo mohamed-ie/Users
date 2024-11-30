@@ -3,7 +3,7 @@ package com.users.feature.likes
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.users.core.common.di.ApplicationScope
-import com.users.core.data.repository.UsersRepository
+import com.users.core.data.repository.UserRepository
 import com.users.core.model.User
 import com.users.core.ui.R
 import com.users.feature.likes.LikesUiEvent.ShowSnackbar
@@ -22,14 +22,14 @@ import org.koin.android.annotation.KoinViewModel
 
 @KoinViewModel
 internal class LikesViewModel(
-    private val usersRepository: UsersRepository,
+    private val userRepository: UserRepository,
     @ApplicationScope
     private val applicationScope: CoroutineScope
 ) : ViewModel() {
     private val _uiEvent = MutableSharedFlow<LikesUiEvent>()
     val uiEvent = _uiEvent.asSharedFlow()
 
-    val uiState: StateFlow<LikesUiState> = usersRepository.likedUsers
+    val uiState: StateFlow<LikesUiState> = userRepository.likedUsers
         .map<List<User>, LikesUiState>(::Success)
         .onStart { emit(Loading) }
         .stateIn(
@@ -40,7 +40,7 @@ internal class LikesViewModel(
 
     fun dislike(user: User) {
         applicationScope.launch {
-            usersRepository.dislike(user.id)
+            userRepository.dislike(user.id)
             _uiEvent.emit(ShowSnackbar(R.string.core_ui_message_disliked))
         }
     }
