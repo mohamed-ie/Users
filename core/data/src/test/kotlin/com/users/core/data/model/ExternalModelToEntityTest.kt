@@ -1,17 +1,16 @@
 package com.users.core.data.model
 
-import com.users.core.model.Address
-import com.users.core.model.Company
-import com.users.core.model.Geolocation
-import com.users.core.model.User
-import org.junit.Assert.*
+import com.users.core.test.model.address
+import com.users.core.test.model.company
+import com.users.core.test.model.user
+import org.junit.Assert.assertEquals
 import org.junit.Test
 
 class ExternalModelToEntityTest {
 
     @Test
     fun companyMapToEntity() {
-        val company = company
+        val company = company()
 
         val entity = company.asEntity()
 
@@ -22,7 +21,7 @@ class ExternalModelToEntityTest {
 
     @Test
     fun addressMapToEntity() {
-        val address = address
+        val address = address()
 
         val entity = address.asEntity()
 
@@ -36,7 +35,7 @@ class ExternalModelToEntityTest {
 
     @Test
     fun userMapToEntity() {
-        val user = user
+        val user = user()
 
         val entity = user.asEntity()
 
@@ -48,36 +47,3 @@ class ExternalModelToEntityTest {
         assertEquals(user.website, entity.website)
     }
 }
-
-private val user
-    get() =  User(
-        id = 1,
-        name = "name",
-        username = "username",
-        email = "email",
-        website = "website",
-        phone = "phone",
-        isLiked = true,
-        address = address,
-        company = company
-    )
-
-private val address
-    get() = Address(
-        street = "street",
-        suite = "suite",
-        city = "city",
-        zipcode = "zipcode",
-        geolocation = Geolocation(
-            latitude = 1.0,
-            longitude = 2.0
-        )
-    )
-
-private val company
-    get() =
-        Company(
-            name = "name",
-            catchPhrase = "catchPhrase",
-            businessStuff = "businessStuff"
-        )

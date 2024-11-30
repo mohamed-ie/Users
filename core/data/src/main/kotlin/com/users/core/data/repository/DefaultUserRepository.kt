@@ -19,9 +19,9 @@ import org.koin.core.annotation.Single
 internal class DefaultUserRepository(
     private val userDao: UserDao,
     private val networkDataSource: UsersNetworkDataSource
-) : UsersRepository {
-    override val likedUsers: Flow<List<User>>
-        get() = userDao.users().map { it.map(PopulatedUser::asExternalModel) }
+) : UserRepository {
+    override val likedUsers: Flow<List<User>> = userDao.users()
+        .map { it.map(PopulatedUser::asExternalModel) }
 
     /**
      * A flow of all users, fetched from the network and combined with liked status
@@ -38,21 +38,20 @@ internal class DefaultUserRepository(
      * Finally, it wraps the result in a [Result] object to handle success or failure
      * and catches any exceptions.
      */
-    override val users: Flow<Result<List<User>>>
-        get() = flow {
-            val users = networkDataSource.users()
-                .getOrThrow()
-                ?.filterNotNull()
-                ?.mapNotNull(UserNetworkModel::asExternalModel)
-                ?: emptyList()
+    override fun users(): Flow<Result<List<User>>> = flow {
+        val users = networkDataSource.users()
+            .getOrThrow()
+            ?.filterNotNull()
+            ?.mapNotNull(UserNetworkModel::asExternalModel)
+            ?: emptyList()
 
-            emit(users)
+        emit(users)
+    }
+        .combine(userDao.userIds) { users, likedIds ->
+            users.map { it.copy(isLiked = likedIds.contains(it.id)) }
         }
-            .combine(userDao.userIds) { users, likedIds ->
-                users.map { it.copy(isLiked = likedIds.contains(it.id)) }
-            }
-            .map { users -> Result.success(users) }
-            .catch { throwable -> emit(Result.failure(throwable)) }
+        .map { users -> Result.success(users) }
+        .catch { throwable -> emit(Result.failure(throwable)) }
 
     override suspend fun like(user: User) {
         userDao.insert(

@@ -1,10 +1,9 @@
 package com.users.core.data.model
 
-import com.users.core.network.model.AddressNetworkModel
-import com.users.core.network.model.CompanyNetworkModel
-import com.users.core.network.model.GeolocationNetworkModel
-import com.users.core.network.model.UserNetworkModel
 import com.users.core.network.model.asExternalModel
+import com.users.core.test.model.networkAddress
+import com.users.core.test.model.networkCompany
+import com.users.core.test.model.networkUser
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Test
@@ -12,7 +11,7 @@ import org.junit.Test
 class NetworkModelToExternalModelTest {
     @Test
     fun addressNetworkModelToExternalModel() {
-        val networkAddress = networkAddress
+        val networkAddress = networkAddress()
         val externalAddress = networkAddress.asExternalModel()
 
         assertEquals(externalAddress?.street, networkAddress.street)
@@ -25,7 +24,7 @@ class NetworkModelToExternalModelTest {
 
     @Test
     fun companyNetworkModelToExternalModel() {
-        val networkCompany = networkCompany
+        val networkCompany = networkCompany()
         val externalCompany = networkCompany.asExternalModel()
 
         assertEquals(externalCompany?.name, networkCompany.name)
@@ -35,7 +34,7 @@ class NetworkModelToExternalModelTest {
 
     @Test
     fun userNetworkModelToExternalModel() {
-        val networkUser = networkUser
+        val networkUser = networkUser()
         val externalUser = networkUser.asExternalModel()
 
         assertNotNull(externalUser)
@@ -46,36 +45,4 @@ class NetworkModelToExternalModelTest {
         assertEquals(externalUser?.website, networkUser.website)
         assertEquals(externalUser?.phone, networkUser.phone)
     }
-
 }
-
-private val networkUser
-    get() = UserNetworkModel(
-        id = 0,
-        name = "User",
-        username = "Username",
-        email = "user@example.com",
-        website = "Website",
-        company = networkCompany,
-        address = networkAddress,
-        phone = "phone"
-    )
-
-private val networkCompany
-    get() = CompanyNetworkModel(
-        name = "Company",
-        catchPhrase = "Catch phrase",
-        businessStuff = "Business stuff"
-    )
-
-private val networkAddress
-    get() = AddressNetworkModel(
-        street = "Address",
-        suite = "Suite",
-        city = "City",
-        zipcode = "123",
-        geolocation = GeolocationNetworkModel(
-            latitude = 2.2,
-            longitude = 1.1
-        )
-    )

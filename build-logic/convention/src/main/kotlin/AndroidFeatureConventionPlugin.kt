@@ -1,5 +1,6 @@
 import com.build_logic.convention.utils.implementation
 import com.build_logic.convention.utils.library
+import com.build_logic.convention.utils.testImplementation
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.dependencies
@@ -19,6 +20,8 @@ class AndroidFeatureConventionPlugin : Plugin<Project> {
 
                 implementation(library("koin.androidx.compose"))
                 implementation(library("kotlinx-serialization-json"))
+
+                testImplementation(project(":core:test"))
             }
         }
     }

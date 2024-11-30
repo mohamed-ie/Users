@@ -24,6 +24,9 @@ class AndroidLibraryComposeConventionPlugin : Plugin<Project> {
 
         dependencies {
             testImplementation(library("junit"))
+            testImplementation(library("mockito.core"))
+            testImplementation(library("mockito.kotlin"))
+            testImplementation(library("kotlinx.coroutines.test"))
             androidTestImplementation(library("androidx.junit"))
             androidTestImplementation(library("androidx.ui.test.junit4"))
         }
